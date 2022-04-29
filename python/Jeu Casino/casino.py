@@ -23,7 +23,7 @@ while continue_partie: #boucle qui commence le jeu,
     while not nom or nom.isspace(): #boucle qui force l'utilisateur à mettre son, 
         nom = input("Entrez votre Nom: ")
         print() #print vide pour un peu de lisibité dans la console
-        
+        nom = nom.upper()
     print("WELCOME DANS LE CASINO", nom.strip()) #Afiicher le nom du joueur, et supprime les espaces du debut
       
     print() 
@@ -103,7 +103,7 @@ while continue_partie: #boucle qui commence le jeu,
         print(f"Vous avez à present ${depot}")
         print()
         quitter = input("Souhaitez-vous quiter le casino Oui/Non ? ")
-        if quitter.lower() == "o" or quitter == "oui":
+        if quitter.lower() == "o" or quitter.lower() == "oui":
             continue_partie = False
             
             print(f"Vous quitez le casino avec ${depot} des gains")

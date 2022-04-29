@@ -1,14 +1,18 @@
 """
 Jeu de math, l'objectif de ce jeux est de demander à l'utilisateur d'effectuer des calculs,
 et verifier si ses reponses sont correctes ou non, et enfin afficher la note qu'il a eue.
-on peut adapter le nombre de questions !
+on peut adapter le nombre des questions !
 ceci est un programme de debutant, ça m'a permis d'apprendre les bases du langage PYTHON !
 
 """
-import random
-nbr_max = 0
+import random #importation du module random
+
+#Varibles qui vont stocker les nombre min et max, cela s'adaptera selon le niveau de l'user
+# ces deux variables sont globals
+nbr_max = 0 
 nbr_min = 0
 
+#une petite liste qui stock les differents niveaux à afficher
 liste = [
     "Débutant",
     "Intermediaire",
@@ -19,32 +23,37 @@ print()
 print("BIENVENUE DANS LE JEU DE MATH")
 print()
 
-print("Quel est votre niveau parmis les 3 ?")
-count = 1
-for i in liste:
-    print(f"{count} ==> {i} ")
-    count += 1
+print("Quel est votre niveau parmis les 3 ?".upper())
 
-print()
+#boucle qui va parcourrir la liste et afficher les niveaux de l'USER
+for compter, i in enumerate(liste): #enumerte pour afficher les elements de la liste avec des numeros d'orde 1 2 3
+    print(f"{i.upper()} ==> {compter+1}") # on affiche les elements en majiscule i.upper()
 
+
+print() #print vide
+
+#fonction qui va demander le niveau de l'USER
 def niveau():
+    """
+    
+    """
     global nbr_min
     global nbr_max
     niveau = 0
     while niveau <= 0 or niveau > 3:
-        niveau = input("mettez votre niveau, 1, 2 ou 3: ")
+        niveau = input("ENTREZ VOTRE NIVEAU 1, 2 ou 3 ! ")
         try:
             niveau = int(niveau)
         except ValueError:
-            print("Vous n'avez pas entrez un nombre")
+            print("VOUS N'AVEZ PAS ENTREZ UN NOMBRE")
             niveau = -1
             continue
         print()
         if niveau > 3:
-            print(f"{niveau} ne fait pas partie ! choisisez entre 1, 2, 3")
+            print(f"{niveau} NE FAIT PAS PARTIE ! CHOISISEZ ENTRE 1, 2 et 3")
             print()
         if niveau <= 0:
-            print("choisisez entre 1, 2, 3")
+            print("CHOISISSEZ ENTRE 1, 2 et 3")
 
     if niveau == 1:
         nbr_min = 2
@@ -56,7 +65,7 @@ def niveau():
 
     else:
         nbr_min = 2
-        nbr_max = random.randint(9,60)
+        nbr_max = random.randint(9, 60)
 
     return nbr_min, nbr_max
 
@@ -64,16 +73,16 @@ def niveau():
 def poser_question():
     a = random.randint(nbr_min, nbr_max)
     b = random.randint(nbr_min, nbr_max)
-    o = random.randint(0, 3) #melange les operateurs + - *
+    o = random.randint(0, 3)  # melange les operateurs + - *
 
     if o == 1:
-       operateur_str = "-"
+        operateur_str = "-"
     elif o == 2:
         operateur_str = "+"
     else:
         operateur_str = "*"
 
-    user = 0 #poser la question à l'utilisateur, avec l'obligation de mettre un chiffre
+    user = 0  # poser la question à l'utilisateur, avec l'obligation de mettre un chiffre
     while user == 0:
         user_str = input(f"{a} {operateur_str} {b} = ")
         try:
@@ -89,10 +98,11 @@ def poser_question():
     else:
         calcul = a * b
 
-    if user == calcul: #Verification si l'utilisateur donne le bonne reponse
+    if user == calcul:  # Verification si l'utilisateur donne le bonne reponse
         return True
 
     return False
+
 
 def demander_nbr_question():
     nbre = 0
@@ -110,12 +120,14 @@ def demander_nbr_question():
             print("ERREUR, Vous avez entrez 0")
     return nbre
 
+
 nombre_max, nombre_min = niveau()
 NOMBRE_DE_QUESTION = demander_nbr_question()
 
 print()
 note = 0
-for i in range(0, NOMBRE_DE_QUESTION): #la boucle quicontrole le nombre des questions, et qui verifie les reponses
+# la boucle quicontrole le nombre des questions, et qui verifie les reponses
+for i in range(0, NOMBRE_DE_QUESTION):
     print(f"La question Numero {i+1} sur {NOMBRE_DE_QUESTION}")
     if poser_question():
         note += 1
@@ -124,7 +136,8 @@ for i in range(0, NOMBRE_DE_QUESTION): #la boucle quicontrole le nombre des ques
         print("INCORECT")
     print()
 
-print(f"Votre note Finale est de : {note} / {NOMBRE_DE_QUESTION}") #affichage du note obtenue par l"user
+# affichage du note obtenue par l"user
+print(f"Votre note Finale est de : {note} / {NOMBRE_DE_QUESTION}")
 
 """
 verification si l'utilisateur a eu la moyenne ou pas !

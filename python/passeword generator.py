@@ -6,7 +6,7 @@ import random #importer random
 
 print("Welcome in passeword generation") #affiche le message 
 print()
-caract = "azertyuiopqsdfghjklmwxcvbn0123456789AZERTYUIOPQSDFGHJKLMWXCVBN&é(-è_çà)=,;:!<>." #les caracteres qui vont permettre generer le mot de passe
+caract = "{?/§/@^\|[#~]}azertyuiopqsdfghjklmwxcvbn0123456789AZERTYUIOPQSDFGHJKLMWXCVBN&é(-è_çà)=,;:!<>." #les caracteres qui vont permettre generer le mot de passe
 
 longueur = input("Quelle sera la longueur de votre passeword: ") #mettez la longueur du mot de passe que vous voulez
 longueur = int(longueur)
