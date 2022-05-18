@@ -25,7 +25,7 @@ def affiche(collection, nombre=-1):
         print(i)
     print()
     print(f"Premier pizza : {collection_n[0]}") #1er pizza
-    print(f"Dernière pizza : {collection_n[-1]}") #2em pizza
+    print(f"Dernière pizza : {collection_n[-1]}") #2em pizza à afficher 
 
 "PIZZA a ajouter"
 #la fonction qui ajoute une pizza dans la collection

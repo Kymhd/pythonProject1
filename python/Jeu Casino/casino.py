@@ -49,7 +49,7 @@ while continue_partie: #boucle qui commence le jeu,
     numero_user = -1 
     
     while numero_user < 0 or numero_user > 49:
-        numero_user = input("Enrez votre numero entre (0 ------- à ----- 49): ")
+        numero_user = input("Enrez votre numero entre <= 0 ------- à ----- 49:=> ")
         try:
             numero_user = int(numero_user)
         except:
