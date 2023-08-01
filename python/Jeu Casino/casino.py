@@ -20,7 +20,7 @@ nom = None #Variable qui va stocker le nom, nom = ""
 
 while continue_partie: #boucle qui commence le jeu, 
     
-    while not nom or nom.isspace(): #boucle qui force l'utilisateur à mettre son, 
+    while not nom or nom.isspace(): #boucle qui force l'utilisateur à mettre son nom, 
         nom = input("Entrez votre Nom: ")
         print() #print vide pour un peu de lisibité dans la console
         nom = nom.upper()
@@ -28,7 +28,7 @@ while continue_partie: #boucle qui commence le jeu,
       
     print() 
     
-    #demander le joueur à mettre quelque une somme superieur à 0
+    #demander le joueur à mettre mettre son depôt, une somme superieur à 0
     while depot <= 0:
         depot = input("Entrez le Montant de votre depot: ")
         try:
@@ -95,14 +95,14 @@ while continue_partie: #boucle qui commence le jeu,
         depot -= mise
     print()   
         
-        
+        #Si le joueur ne dispose plus d'argent, le jeu s'arrête automatiquement
     if depot <= 0:
         print("Vous ne disposez plus de fonds")
         continue_partie = False   
     else:
         print(f"Vous avez à present ${depot}")
         print()
-        quitter = input("Souhaitez-vous quiter le casino Oui/Non ? ")
+        quitter = input("Souhaitez-vous quiter le casino Oui/Non ? ") #Le joueur peut toutefois decider s'il continue de jouer ou pas
         if quitter.lower() == "o" or quitter.lower() == "oui":
             continue_partie = False
             
