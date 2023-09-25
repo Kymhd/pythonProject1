@@ -48,7 +48,8 @@ class Student:
             "First Name": None,
             "Study Program": None,
             "Serie": None,
-            "Date of Birth": None
+            "Date of Birth": None,
+            "institution email": "Informations incomplètes"
         }
 
     def fill_information(self, name, first_name, study_program, serie, date_of_birth):
@@ -64,12 +65,16 @@ class Student:
             print("Erreur: Format de date de naissance incorrect. Utilisez le format dd-mm-yyyy.")
 
         # Générer la matricule uniquement si toutes les informations sont remplies
-        if all(len(value.strip()) > 0 for key, value in self.info.items() if key != "Matriculation Number"):
+        if all(len(value.strip()) > 0 for key, value in self.info.items() if (key != "Matriculation Number") or (key != "institution email")):
             current_year = datetime.date.today().year
             random_letters = ''.join(random.sample('ABCDEFGHIJKLMNOPQRSTUVWXYZ', 2))
             random_letter = ''.join(random.sample('ABCDEFGHIJKLMNOPQRSTUVWXYZ', 1))
             random_int = ''.join(random.sample('0123456789', 3))
             self.info["Matriculation Number"] = f"{current_year}{random_letters}{random_int}{random_letter}"
+            first_name_no_space = first_name.replace(" ", "").lower()
+            name_no_space = name.replace(" ", "").lower()
+            self.info["institution email"] = f"{first_name_no_space}.{name_no_space}@udc.edu.km"
+
 
     def display_info(self):
         pass  # Aucun besoin de l'afficher individuellement ici
@@ -103,36 +108,37 @@ def chercher_etudiant_par_matricule(matricule):
 students = []
 
 student1 = Student()
-student1.fill_information("Kaniza", "LOHAMED", "AES", "A1", "2-3-1990")
+student1.fill_information("Innoussa", "AHAMADI", "Médcine", "C", "1-12-2001")
 students.append(student1)
 
 #Ajoutez les étudiants supplémentaires
 student2 = Student()
-student2.fill_information("Said", "KAZAD", "Biologie", "C", "12-06-1992")
+student2.fill_information("Anrifidine", "Asco", "LEA", "A4", "12-06-2000")
 students.append(student2)
 
-# student3 = Student()
-# student3.fill_information("Hissane", "ALI", "Anglais", "A2", "25-08-2006")
-# students.append(student3)
+student3 = Student()
+student3.fill_information("Daoulati", "Bere", "Anglais", "G", "8-08-2001")
+students.append(student3)
 
 # Afficher tous les étudiants
 # afficher_tous_les_etudiants(students)
 
 # Chercher un étudiant par matricule
-matricule_recherche = " 2023EW910S  ".upper().strip() # Remplacez par le matricule que vous voulez rechercher
+matricule_recherche = " 2023XE319D  ".upper().strip() # Remplacez par le matricule que vous voulez rechercher
 etudiant_trouve = chercher_etudiant_par_matricule(matricule_recherche)
 
 if etudiant_trouve:
     print("Étudiant trouvé :")
     table = PrettyTable()
-    table.field_names = ["Matriculation Number", "Name", "First Name", "Study Program", "Serie", "Date of Birth"]
+    table.field_names = ["Matriculation Number", "Name", "First Name", "Study Program", "Serie", "Date of Birth", "institution email"]
     table.add_row([
         etudiant_trouve.info["Matriculation Number"],
         etudiant_trouve.info["Name"],
         etudiant_trouve.info["First Name"],
         etudiant_trouve.info["Study Program"],
         etudiant_trouve.info["Serie"],
-        etudiant_trouve.info["Date of Birth"]
+        etudiant_trouve.info["Date of Birth"],
+        etudiant_trouve.info["institution email"]
     ])
     print(table)
 else:
@@ -141,7 +147,7 @@ else:
 
 # Créez un tableau unique pour tous les étudiants avec en-tête
 table = PrettyTable()
-table.field_names = ["Matriculation Number", "Name", "First Name", "Study Program", "Serie", "Date of Birth"]
+table.field_names = ["Matriculation Number", "Name", "First Name", "Study Program", "Serie", "Date of Birth", "institution email"]
 
 for student in students:
     table.add_row([
@@ -150,7 +156,8 @@ for student in students:
         student.info["First Name"],
         student.info["Study Program"],
         student.info["Serie"],
-        student.info["Date of Birth"]
+        student.info["Date of Birth"],
+        student.info["institution email"]
     ])
 
 print(table)
@@ -188,7 +195,7 @@ def trier_etudiants_depuis_csv(critere_tri, est_serie=True):
     critere_label = "Série" if est_serie else "Filière"
     print(f"Étudiants triés par {critere_label} '{critere_tri}' depuis le fichier CSV :")
     table = PrettyTable()
-    table.field_names = ["Matriculation Number", "Name", "First Name", "Study Program", "Serie", "Date of Birth"]
+    table.field_names = ["Matriculation Number", "Name", "First Name", "Study Program", "Serie", "Date of Birth", "institution email"]
 
     for etudiant in students_from_csv:
         if (est_serie and etudiant.info["Serie"] == critere_tri) or \
@@ -199,18 +206,19 @@ def trier_etudiants_depuis_csv(critere_tri, est_serie=True):
                 etudiant.info["First Name"],
                 etudiant.info["Study Program"],
                 etudiant.info["Serie"],
-                etudiant.info["Date of Birth"]
+                etudiant.info["Date of Birth"],
+                student.info["institution email"]
             ])
 
     print(table)
 
 print()
 # Utilisation de la fonction pour trier les étudiants par série depuis le fichier CSV
-tri_critere_serie = "D"  # Remplacez par la série que vous souhaitez utiliser
+tri_critere_serie = "A1"  # Remplacez par la série que vous souhaitez utiliser
 trier_etudiants_depuis_csv(tri_critere_serie, est_serie=True)
 
 # Utilisation de la fonction pour trier les étudiants par filière depuis le fichier CSV
-# tri_critere_filiere = "AES"  # Remplacez par la filière que vous souhaitez utiliser
+# tri_critere_filiere = "Géstion"  # Remplacez par la filière que vous souhaitez utiliser
 # trier_etudiants_depuis_csv(tri_critere_filiere, est_serie=False)
 
 
@@ -252,8 +260,6 @@ afficher_tendances_filieres()
 
 
 
-# ... (le reste de votre code)
-
 def afficher_moyenne_age_etudiants_depuis_csv():
     # Lire les informations des étudiants depuis le fichier CSV
     students_from_csv = []
@@ -292,7 +298,7 @@ def afficher_moyenne_age_etudiants_depuis_csv():
 
 # Écrire les informations des étudiants dans un fichier CSV
 with open('students.csv', mode='a', newline='') as csv_file:
-    fieldnames = ["Matriculation Number", "Name", "First Name", "Study Program", "Serie", "Date of Birth"]
+    fieldnames = ["Matriculation Number", "Name", "First Name", "Study Program", "Serie", "Date of Birth", "institution email"]
     writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
     # Écrit l'en-tête uniquement si le fichier est vide
@@ -321,9 +327,10 @@ for student in students_from_csv:
     print("Study Program:", student.info["Study Program"])
     print("Serie:", student.info["Serie"])
     print("Date of Birth:", student.info["Date of Birth"])
+    print("institution email:", student.info["institution email"])
     print("-" * 20)
 
 
-print()
+# print()
 
 afficher_moyenne_age_etudiants_depuis_csv()
