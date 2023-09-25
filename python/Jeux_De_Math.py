@@ -8,7 +8,7 @@ ceci est un programme de debutant, ça m'a permis d'apprendre les bases du langa
 import random #importation du module random
 
 #Varibles qui vont stocker les nombre min et max, cela s'adaptera selon le niveau de l'user
-# ces deux variables sont globals
+# ces deux variables sont globales
 nbr_max = 0 
 nbr_min = 0
 
